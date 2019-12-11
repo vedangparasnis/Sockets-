@@ -32,6 +32,7 @@ locations.addEventListener("click", e => {
 
 socket.on("welcome", msg => {
   console.log("user added" + msg.message + "at" + msg.createdAt);
+  alert("a new user just entered");
   document.querySelector(
     "#make"
   ).innerHTML = `<span classname="text-danger" role="alert">${msg.message}</span>`;
@@ -48,18 +49,38 @@ socket.on("body", data => {
   div.append(btn);
   div.append(
     document.createTextNode(
-      `location shared latitude ${data.latitude} longitude  ${data.longitude}`
+      `location shared latitude ${data.loc.latitude} longitude  ${data.loc.longitude}`
     )
   );
   div.className = "list-group-item  text-secondary bg-dark";
+  let span = createtimestamp();
+  span.textContent = data.val.time;
+
+  div.appendChild(span);
   msgs.appendChild(div);
 });
 
+function createtimestamp() {
+  const span = document.createElement("span");
+  span.className = "badge badge-info float-right";
+  return span;
+}
+
+function addmsgtoDom(str, type) {
+  const divs = document.createElement("div");
+  divs.append(document.createTextNode(str));
+  divs.className = "list-group-item";
+
+  let span = createtimestamp();
+  span.textContent = type.time;
+
+  divs.appendChild(span);
+  msgs.appendChild(divs);
+}
+
 socket.on("user_msgs", msg => {
-  const div = document.createElement("div");
-  div.append(document.createTextNode(`new User msg ${msg}`));
-  div.className = "list-group-item";
-  msgs.appendChild(div);
+  // addd to dom
+  addmsgtoDom(`new User msg ${msg.inp}`, msg);
 });
 
 btn_chat.addEventListener("submit", e => {
@@ -74,7 +95,8 @@ btn_chat.addEventListener("submit", e => {
       if (msg == "Language is harsh") {
         alert(msg);
       } else {
-        console.log(msg);
+        // adding time to dom
+        console.log("msg received");
       }
     });
   }

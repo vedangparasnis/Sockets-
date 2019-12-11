@@ -3,14 +3,11 @@ const socket = require("socket.io");
 
 const express = require("express");
 const path = require("path");
-const hbs = require("hbs");
-const event = require("events");
 const uuid = require("uuid");
 const cors = require("cors");
 
 // time
-const dayjs = require("dayjs");
-const reltime = require("dayjs/plugin/relativeTime");
+
 const bwd = require("bad-words");
 
 const app = express();
@@ -20,6 +17,7 @@ const io = socket(server);
 
 const { getName } = require("./public/js/files");
 const { auth } = require("./middleware");
+const { time } = require("./public/js/files");
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./templates"));
@@ -40,8 +38,7 @@ app.get("/*", (req, res) => {
 });
 
 io.on("connection", socket => {
-  socket.emit("welcome", getName("hello welcome there user"));
-
+  socket.broadcast.emit("welcome", getName("a new user has just joined"));
   socket.on("user_msg", (inp, cb) => {
     // successfully receiving the message
     const fileter = new bwd();
@@ -49,9 +46,8 @@ io.on("connection", socket => {
     if (fileter.isProfane(inp)) {
       return cb("Language is harsh");
     } else {
-      io.emit("user_msgs", inp);
-      let val = dayjs.extend(reltime);
-      cb(dayjs(Date.now()).fromNow());
+      io.emit("user_msgs", time(inp));
+      cb(time());
     }
   });
 
@@ -63,8 +59,8 @@ io.on("connection", socket => {
   socket.on("location_user", (loc, cb) => {
     // handle the server side response to client request for ack
     setTimeout(() => {
-      io.emit("body", loc);
-      cb("message shared with all");
+      io.emit("body", { loc, val: time() });
+      cb(time("message location all shared"));
     }, 1500);
   });
 });

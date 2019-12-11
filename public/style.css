@@ -1,0 +1,28 @@
+div {
+  color: black;
+}
+body {
+  overflow-y: hidden;
+}
+.dashboard {
+  box-sizing: border-box;
+  height: 100vh;
+  width: auto;
+  overflow-x: hidden;
+}
+#chats_body {
+  overflow-y: hidden;
+  height: 100vh;
+  background: rgba(5, 4, 45, 1.2);
+}
+#mls {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0, 0.9);
+}
+@media (max-width: 550px) {
+  .chats_body {
+    width: auto;
+    height: 200px;
+  }
+}

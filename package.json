@@ -1,0 +1,29 @@
+{
+  "name": "socket-io",
+  "version": "1.0.0",
+  "description": "chat app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "vednag",
+  "license": "ISC",
+  "dependencies": {
+    "bad-words": "^3.0.3",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dayjs": "^1.8.17",
+    "express": "^4.17.1",
+    "firebase-admin": "^8.8.0",
+    "firebase-functions": "^3.3.0",
+    "hbs": "^4.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "socket.io": "^2.3.0",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
+}

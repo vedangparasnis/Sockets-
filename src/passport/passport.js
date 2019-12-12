@@ -9,6 +9,25 @@ const { facebook } = require("../../public/js/files");
 const firebase = require("firebase");
 
 // configure strategy
+
+passport.serializeUser((user, done) => {
+  // save to cookie
+  done(null, user.data().id);
+});
+
+passport.deserializeUser((id, done) => {
+  firebase
+    .firestore()
+    .collection("googleUsers")
+    .limit(1)
+    .where("id", "==", id)
+    .get()
+    .then(msg => {
+      // user is present here now
+      done(null, msg.docs[0].data().id);
+    });
+});
+
 passport.use(
   new Google(
     {
@@ -30,17 +49,21 @@ passport.use(
         .then(user => {
           if (user.docs.length !== 0) {
             console.log("user present there");
+            // next stage serialize as google id
+            done(null, user.docs[0]);
           } else {
+            const cred = {
+              id,
+              displayName,
+              photo
+            };
             firebase
               .firestore()
               .collection("googleUsers")
-              .add({
-                id,
-                displayName,
-                photo
-              })
+              .add(cred)
               .then(msg => {
                 console.log(profile);
+                done(null, cred);
               })
               .catch(err => {
                 console.log(err);
@@ -50,11 +73,6 @@ passport.use(
     }
   )
 );
-//   if (!user.exists) {
-//     console.log("same user again");
-//   } else {
-//
-//   }
 
 passport.use(
   new Facebook(

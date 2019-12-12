@@ -45,7 +45,7 @@ body {
 .conts {
   position: relative;
   width: 250px;
-  height: 250px;
+  height: auto;
   background: #fff;
   border-radius: 1.1rem;
   padding: 1.25rem;
@@ -84,4 +84,20 @@ body {
   font-weight: bold;
   background: #fff;
   color: #69074b;
+}
+
+.auth {
+  display: flex;
+  justify-content: center;
+}
+.auth img {
+  width: 40px;
+  height: auto;
+  object-fit: cover;
+}
+#user {
+  font-weight: 100;
+  color: #69074b;
+  text-align: center;
+  font-size: 0.6rem;
 }

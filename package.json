@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon src/app.js"
   },
   "author": "vednag",
   "license": "ISC",
@@ -21,6 +21,9 @@
     "hbs": "^4.0.6",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0",
     "socket.io": "^2.3.0",
     "uuid": "^3.3.3"
   },

@@ -5,7 +5,8 @@ const express = require("express");
 const path = require("path");
 const uuid = require("uuid");
 const cors = require("cors");
-const admin = require("firebase-admin");
+const firebase = require("firebase");
+const moment = require("moment");
 
 // time
 
@@ -16,17 +17,24 @@ const server = http.createServer(app);
 // raw http server used by express
 const io = socket(server);
 
-const { getName } = require("./public/js/files");
-const { auth } = require("./middleware");
-const { time } = require("./public/js/files");
-const { config } = require("./configs/firebase");
+const { getName } = require("../public/js/files");
+const { auth } = require("../middleware");
+const { time } = require("../public/js/files");
+const { config } = require("../configs/firebase");
 
 // init firebase
-admin.initializeApp(config);
+firebase.initializeApp(config);
+firebase
+  .firestore()
+  .collection("user")
+  .add({
+    name: "vedang",
+    time: moment().calendar()
+  });
 
 app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "./templates"));
-app.use(express.static(path.join(__dirname, "./public")));
+app.set("views", path.join(__dirname, "../templates"));
+app.use(express.static(path.join(__dirname, "../public")));
 app.use("/", require("./auth"));
 app.use(cors());
 

@@ -5,6 +5,7 @@ const express = require("express");
 const path = require("path");
 const uuid = require("uuid");
 const cors = require("cors");
+const admin = require("firebase-admin");
 
 // time
 
@@ -18,6 +19,10 @@ const io = socket(server);
 const { getName } = require("./public/js/files");
 const { auth } = require("./middleware");
 const { time } = require("./public/js/files");
+const { config } = require("./configs/firebase");
+
+// init firebase
+admin.initializeApp(config);
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./templates"));

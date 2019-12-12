@@ -77,3 +77,11 @@ body {
   font-weight: bold;
   color: #fff;
 }
+
+#userinfo {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  background: #fff;
+  color: #69074b;
+}

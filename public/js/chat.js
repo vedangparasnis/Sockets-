@@ -86,6 +86,11 @@ socket.on("user_msgs", msg => {
 btn_chat.addEventListener("submit", e => {
   e.preventDefault();
   const inp = document.querySelector("#user_message").value;
+  if (inp == "bye" || "Bye") {
+    socket.on("disconnect", () => {
+      console.log("emit the user method");
+    });
+  }
   if (inp.length == 0) {
     alert("please type a message first");
   } else {

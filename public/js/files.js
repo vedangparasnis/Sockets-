@@ -24,3 +24,5 @@ module.exports.facebook = {
   clientID: 2626834230879797,
   clientSecret: "468a869bde02931426ffd0a8c9400e08"
 };
+
+module.exports.keys = { value: "user_secret" };

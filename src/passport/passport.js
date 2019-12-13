@@ -11,7 +11,9 @@ const firebase = require("firebase");
 // configure strategy
 
 passport.serializeUser((user, done) => {
+  console.log(123);
   // save to cookie
+  // attach to cokie send to browser (to the  user); attach to the request object
   done(null, user.data().id);
 });
 
@@ -25,6 +27,9 @@ passport.deserializeUser((id, done) => {
     .then(msg => {
       // user is present here now
       done(null, msg.docs[0].data().id);
+    })
+    .catch(err => {
+      console.log(err);
     });
 });
 
@@ -50,6 +55,7 @@ passport.use(
           if (user.docs.length !== 0) {
             console.log("user present there");
             // next stage serialize as google id
+            console.log(user.docs[0].data().id);
             done(null, user.docs[0]);
           } else {
             const cred = {
@@ -62,13 +68,28 @@ passport.use(
               .collection("googleUsers")
               .add(cred)
               .then(msg => {
-                console.log(profile);
-                done(null, cred);
+                firebase
+                  .firestore()
+                  .collection("googleUsers")
+                  .where("id", "==", cred.id)
+                  .limit(1)
+                  .get()
+                  .then(newUser => {
+                    console.log("user added");
+                    console.log(newUser.docs[0].data());
+                    done(null, newUser.docs[0]);
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
               })
               .catch(err => {
                 console.log(err);
               });
           }
+        })
+        .catch(err => {
+          console.log(err);
         });
     }
   )

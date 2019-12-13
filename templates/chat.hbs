@@ -13,10 +13,27 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand navbar-light bg-dark py-0">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <div class="navbar-brand text-warning">
-        Chat App
+
+      <a class="navbar-brand" href="#">Chat Room</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+        <span class="navbar-text ml-auto">
+          <div class="navbar-nav">
+            <div class="nav-item badge badge-secondary text-warning">
+              {{user_data.displayName}}
+            </div>
+          </div>
+        </span>
       </div>
     </div>
   </nav>

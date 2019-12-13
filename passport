@@ -1,1 +1,5 @@
 use passport for the oauth othentication uing node
+
+
+done is a express callbackused to stuff or serialize the users 
+stuff in cookie 

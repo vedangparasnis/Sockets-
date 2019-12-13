@@ -8,8 +8,6 @@ const router = express.Router();
 const passprt = require("passport");
 const setup = require("./passport/passport");
 
-module.exports.auth = (req, res, next) => {};
-
 router.get("/", (req, res) => {
   res.render("auth.hbs", {
     date: moment().weekday(),
@@ -29,10 +27,12 @@ router.get(
 
 router.get(
   "/chat/dataGoogle",
-  // fire the passport callback
   passprt.authenticate("google"),
+  // fire the passport callback called
+  // followed by  done(), serialize
   (req, res) => {
-    res.send("callback url");
+    // retrieve to user done by deserialize returned a snapshot
+    res.redirect("/chat");
   }
 );
 
@@ -49,7 +49,8 @@ router.get(
   "/chat/dataFacebook",
   passprt.authenticate("facebook"),
   (req, res) => {
-    res.send("callback url");
+    // all done by passport
+    res.send("hello");
   }
 );
 

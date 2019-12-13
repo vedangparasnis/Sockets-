@@ -3,13 +3,14 @@ const socket = require("socket.io");
 
 const express = require("express");
 const path = require("path");
+const passport = require("passport");
 const uuid = require("uuid");
 const cors = require("cors");
 const firebase = require("firebase");
 const moment = require("moment");
+const cookie = require("cookie-session");
 
 // time
-
 const bwd = require("bad-words");
 
 const app = express();
@@ -18,19 +19,24 @@ const server = http.createServer(app);
 const io = socket(server);
 
 const { getName } = require("../public/js/files");
-const { auth } = require("../middleware");
 const { time } = require("../public/js/files");
 const { config } = require("../configs/firebase");
-
+const {
+  keys: { value }
+} = require("../public/js/files");
 // init firebase
 firebase.initializeApp(config);
-firebase
-  .firestore()
-  .collection("user")
-  .add({
-    name: "vedang",
-    time: moment().calendar()
-  });
+
+app.use(
+  cookie({
+    maxAge: 24 * 60 * 60 * 1000 * 5,
+    // encryption the cookie
+    keys: [value]
+  })
+);
+// init passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "../templates"));
@@ -39,12 +45,18 @@ app.use("/", require("./auth"));
 app.use(cors());
 
 app.get("/chat", auth, (req, res) => {
-  if (req.user) {
-    res.render("chat", {
-      user: "mat dowrie"
-    });
-  }
+  console.log(req.user);
+  res.render("chat.hbs");
 });
+
+function auth(req, res, next) {
+  if (req.user) {
+    console.log(req.userBody);
+    next();
+  } else {
+    res.redirect("/");
+  }
+}
 
 app.get("/*", (req, res) => {
   res.status(404).json({ err: "file not on server" });
@@ -79,4 +91,6 @@ io.on("connection", socket => {
 });
 
 // leave the user msg
-server.listen(3000);
+server.listen(3000, server => {
+  console.log("server running");
+});

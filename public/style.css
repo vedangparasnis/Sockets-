@@ -101,3 +101,8 @@ body {
   text-align: center;
   font-size: 0.6rem;
 }
+.user_image {
+  height: auto;
+  width: 25px;
+  object-fit: cover;
+}

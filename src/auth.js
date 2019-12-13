@@ -32,7 +32,7 @@ router.get(
   // followed by  done(), serialize
   (req, res) => {
     // retrieve to user done by deserialize returned a snapshot
-    res.redirect("/chat");
+    res.render("chat.hbs", { user_data: req.user.data() });
   }
 );
 

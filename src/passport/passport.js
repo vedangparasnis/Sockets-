@@ -1,11 +1,10 @@
 const passport = require("passport");
 const Google = require("passport-google-oauth20");
 const Facebook = require("passport-facebook");
-const key = "AIzaSyAT_hDrRZqQOgA97jYKE3ARauS84F5IcGo";
 const {
   client: { clientID, clientSecret }
-} = require("../../public/js/files");
-const { facebook } = require("../../public/js/files");
+} = require("../../public/js/secrets");
+const { facebook } = require("../../public/js/secrets");
 const firebase = require("firebase");
 
 // configure strategy
@@ -103,8 +102,6 @@ passport.use(
       callbackURL: "/chat/dataFacebook"
       // options configure
     },
-    (accessToken, refreshToken, profile, done) => {
-      console.log(facebook);
-    }
+    (accessToken, refreshToken, profile, done) => {}
   )
 );

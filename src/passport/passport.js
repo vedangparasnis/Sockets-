@@ -10,7 +10,6 @@ const firebase = require("firebase");
 // configure strategy
 
 passport.serializeUser((user, done) => {
-  console.log(123);
   // save to cookie
   // attach to cokie send to browser (to the  user); attach to the request object
   done(null, user.data().id);

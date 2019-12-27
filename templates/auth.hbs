@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="/style.css">
   <title>Document</title>
 </head>
@@ -14,18 +16,26 @@
     <div>Welcome to the room time now is {{date}}</div>
     <div>Welcome to the room time now is {{time}}</div>
   </div>
+  <div id="msg">{{msg}}</div>
   <div class="bg">
     <div class="conts">
-      <form class="content" action="/chat" method="GET">
+      <form class="content" action="/" method="POST">
         <label for="username"></label>
-        <input placeholder="username" required />
+        <input placeholder="username" name="username" required />
         <label for="password"></label>
 
-        <input placeholder="password" type="password" required />
+        <input placeholder="password" name="password" type="password" required />
+        <div class="alert alert-danger font-weight-bold">
+          {{errormsg}}
+        </div>
         <button type="submit">Submit</button>
       </form>
       <br />
       <hr />
+      <span id="custom">
+        <a href="/custom/register">
+          Register first
+        </a> </span>
       <span id="user">Sign up with Google</span>
       <div class="auth">
         <a href="/auth/google">
@@ -38,7 +48,7 @@
     </div>
   </div>
 
-
 </body>
+<script src="/js/auth/files.js"></script>
 
 </html>

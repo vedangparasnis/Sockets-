@@ -36,6 +36,10 @@ router.get(
   }
 );
 
+router.get("/chat", (req, res) => {
+  res.render("chat.hbs");
+});
+
 router.get(
   "/auth/facebook",
   passprt.authenticate("facebook", {

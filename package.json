@@ -4,10 +4,10 @@
   "description": "chat app",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node src/app.js",
     "dev": "nodemon src/app.js"
   },
-  "author": "vednag",
+  "author": "vedang",
   "license": "ISC",
   "dependencies": {
     "bad-words": "^3.0.3",

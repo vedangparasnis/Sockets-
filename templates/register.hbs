@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="userinfo">
+        <div>Welcome to the room time now is {{date}}</div>
+        <div>The Register page</div>
+    </div>
+    <div class="bg">
+        <div class="conts">
+            <form class="content" action="/custom/register" method="POST">
+                <label for="username"></label>
+                <input placeholder="username" name="username" required />
+                <label for="email"></label>
+                <input placeholder="email" name="email" required />
+                <label for="password"></label>
+
+                <input placeholder="password" name="password" type="password" required />
+                <button type="submit">Submit</button>
+            </form>
+            <br />
+            <hr />
+            <span id="custom">
+                <a href="/">
+                    have Account <b>??</b> Login
+                </a> </span>
+        </div>
+    </div>
+
+</body>
+<script src="/js/auth/files.js"></script>
+
+</html>
